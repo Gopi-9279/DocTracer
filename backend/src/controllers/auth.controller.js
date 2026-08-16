@@ -37,7 +37,12 @@ const userRegisterationContoller = async (req, res) => {
         });
         // Jwt token denge for account creation
         const token = jwt.sign({userId:user._id},process.env.JWT_SECRET,{expiresIn:"1d"})
-        res.cookie("token",token)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            maxAge: 24 * 60 * 60 * 1000,
+        });
 
     res.status(201).json({
         user:{
@@ -86,7 +91,12 @@ const userLoginController = async(req,res)=>{
     }
     // Generate JWT token
     const token = jwt.sign({userId:user._id},process.env.JWT_SECRET,{expiresIn:"1d"})
-    res.cookie("token",token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 24 * 60 * 60 * 1000,
+    });
 
     res.status(200).json({
         user:{
