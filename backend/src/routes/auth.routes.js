@@ -4,19 +4,19 @@ import {authuser} from '../middlewares/auth.middleware.js';
 const authRouter = Router();
 
 /**
- * @route POST /api/auth/register
+ * @route POST /api/v1/auth/register
  */
 authRouter.post('/register', userRegisterationContoller);   
 /**
- * @route POST /api/auth/login
+ * @route POST /api/v1/auth/login
  */
 authRouter.post('/login', userLoginController);
 /**
- * @route POST /api/auth/logout
+ * @route POST /api/v1/auth/logout
  */
 authRouter.post('/logout', authuser, userLogOutController);
 /**
- * @route GET /api/auth/profile
+ * @route GET /api/v1/auth/profile
  * @desc Get user profile
  * @access private
  */

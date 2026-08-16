@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import tokenblackListModel from '../models/blacklistModel.js';
 
 /**
- * @route POST /api/auth/register
+ * @route POST /api/v1/auth/register
  * @desc Register a new user
  * @access Public
  */
@@ -45,12 +45,12 @@ const userRegisterationContoller = async (req, res) => {
         });
 
     res.status(201).json({
+        message : "User registered successfully",
         user:{
             _id:user._id,
             email:user.email,
             name:user.name
-        },
-        token
+        }
     })
 
     } catch (error) {
@@ -61,7 +61,7 @@ const userRegisterationContoller = async (req, res) => {
 
 
 /**
- * @route POST /api/auth/login
+ * @route POST /api/v1/auth/login
  * @desc Login a user
  * @access public
  */
@@ -99,17 +99,17 @@ const userLoginController = async(req,res)=>{
     });
 
     res.status(200).json({
+        message : "User logged in successfully",
         user:{
             _id:user._id,
             email:user.email,
             name:user.name
-        },
-        token
+        }
     })
 }
 
 /**
- * @route POST /api/auth/logout 
+ * @route POST /api/v1/auth/logout 
  * @description Logout controller
  * @access public 
  */
@@ -132,7 +132,7 @@ async function userLogOutController(req,res){
 }
 
 /**
- * @route GET /api/auth/profile
+ * @route GET /api/v1/auth/profile
  * @desc Get user profile
  * @access private
  */
@@ -149,7 +149,7 @@ const getUserProfileController = async (req, res) => {
             message: 'User profile fetched successfully',
             user :{
                 id : user._id,
-                username : user.username,
+                username : user.name,
                 email : user.email
             }
         });
